@@ -5,6 +5,7 @@ from pygame.locals import *
 from bird import Bird
 from base import Base
 from pipe import Pipe
+from time import sleep
 
 
 DISPLAY_WIDTH = 400
@@ -31,7 +32,7 @@ bird_group.add(bird)
 
 def get_random_pipes(xpos):
     size = random.randint(100, 300)
-    pipe = Pipe(False, xpos, size, DISPLAY_HEIGHT)
+    pipe = Pipe(False, xpos, (2 + size), DISPLAY_HEIGHT)
     pipe_inverted = Pipe(True, xpos, DISPLAY_HEIGHT - size - PIPE_GAP, DISPLAY_HEIGHT)
 
     return (pipe, pipe_inverted)
@@ -99,26 +100,36 @@ if __name__ == "__main__":
 
         if (pygame.sprite.groupcollide(bird_group, base_group, False, False, pygame.sprite.collide_mask) or
         pygame.sprite.groupcollide(bird_group, pipe_group, False, False, pygame.sprite.collide_mask)):
+            sleep(0.500)
             gameOver = True
-        if gameOver:
+
+        while gameOver:
             display.blit(BG_DISPLAY, (0, 0))
             text = STAT_FONT.render("Game Over ", 2, (255, 0, 0))
-            text2 = STAT_FONT.render("Aperte R para jogar novamente!!! ", 1, (255, 0, 0))
-            display.blit(text, (280 - 10 - text.get_width(), 280))
-            display.blit(text2, (385 - 10 - text2.get_width(), 300))
+            text2 = STAT_FONT.render('Aperte "S" para SAIR', 1, (255, 0, 0))
+            text3 = STAT_FONT.render('ou', 1, (255, 0, 0))
+            text4 = STAT_FONT.render('"R" para continuar jogando', 1, (255, 0, 0))
+
+            display.blit(text, (280 - 10 - text.get_width(), 260))
+            display.blit(text2, (315 - 10 - text2.get_width(), 300))
+            display.blit(text3, (215 - 10 - text3.get_width(), 320))
+            display.blit(text4, (345 - 10 - text4.get_width(), 340))
+
             for event in pygame.event.get():        
                 if event.type == KEYDOWN:
+                    if event.type == QUIT:
+                        pygame.quit()
+                        exit()
                     if event.key == pygame.K_s:
                         pygame.quit()
                         exit()
 
                     if event.key == pygame.K_r:
-
                         bird_group = pygame.sprite.Group()
                         bird = Bird(width=DISPLAY_WIDTH, heigth=DISPLAY_HEIGHT)
                         bird_group.add(bird)
-
                         base_group = pygame.sprite.Group()
+
                         for i in range(2):
                             base = Base(BASE_WIDTH, DISPLAY_HEIGHT, BASE_HEIGHT, (BASE_WIDTH * i)-5 )
                             base_group.add(base)
@@ -130,5 +141,6 @@ if __name__ == "__main__":
                             pipe_group.add(pipes[1])
 
                         gameOver = False
+                pygame.display.update()
                         
         pygame.display.update()
