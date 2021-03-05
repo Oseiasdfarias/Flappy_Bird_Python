@@ -18,7 +18,7 @@ PIPE_GAP = 180
 
 pygame.font.init()
 
-STAT_FONT = pygame.font.SysFont("comicsans", 30)
+STAT_FONT = pygame.font.SysFont("comicsans", 35)
 
 pygame.init()
 display = pygame.display.set_mode((DISPLAY_WIDTH, DISPLAY_HEIGHT))
