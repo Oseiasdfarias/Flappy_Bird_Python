@@ -1,6 +1,13 @@
-# Flappy_Bird_Python
+# Projeto de Jogo com Pygame
 
-Flappy Bird em Python
+Este projeto utiliza a biblioteca Pygame como motor do jogo e implementa três classes principais:
+
+1. Classe Base: Responsável pela construção e gestão da tela do jogo.
+2. Classe Pipe: Responsável pela implementação do cenário dos canos.
+3. Classe Bird: Implementa a lógica e os movimentos do pássaro.
+
+
+Além disso, há um arquivo principal (main) que coordena a dinâmica do jogo, gerenciando a interação entre as classes e o fluxo geral do jogo.
 
 ## Demostração
 
